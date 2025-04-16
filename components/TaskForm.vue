@@ -29,7 +29,9 @@ function addNewTask() {
   const title = newTask.value.trim();
   const tags = tagInput.value
     .split(',')
-    .map((t) => t.trim())
+    .map(
+      (t) => t.trim().toLowerCase().replace(/\s+/g, '-') // optional: turn spaces into dashes
+    )
     .filter((t) => t.length > 0);
 
   if (title) {
