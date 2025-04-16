@@ -27,6 +27,14 @@
     @apply bg-white p-4 rounded shadow flex items-center justify-between;
   }
 
+  .task-toggle {
+    @apply btn-icon border border-gray-300 rounded-full;
+  }
+
+  .task-toggle-active {
+    @apply bg-green-100 border-green-500;
+  }
+
   .task-done {
     @apply line-through opacity-50;
   }
