@@ -1,5 +1,5 @@
 <template>
-  <draggable v-model="store.tasks" item-key="id" class="space-y-2">
+  <draggable v-model="store.tasks" item-key="id" class="task-list">
     <template #item="{ element }">
       <TaskCard :task="element" />
     </template>

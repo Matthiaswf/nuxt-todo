@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded font-medium text-white;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600;
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-full hover:bg-gray-100 transition;
+  }
+
+  .form-input {
+    @apply w-full p-2 border border-gray-300 rounded;
+  }
+
+  .task-card {
+    @apply bg-white p-4 rounded shadow flex items-center justify-between;
+  }
+
+  .task-done {
+    @apply line-through opacity-50;
+  }
+
+  .task-list {
+    @apply space-y-2;
+  }
+}
