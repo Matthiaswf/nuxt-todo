@@ -1,18 +1,37 @@
 import { defineStore } from 'pinia';
+import { ref, watch, onMounted } from 'vue';
 import { useStorage } from '@vueuse/core';
 
+type Task = {
+  id: number;
+  title: string;
+  done: boolean;
+};
+
 export const useTaskStore = defineStore('task', () => {
-  const tasks = useStorage('taskify-tasks', [
-    { id: 1, title: 'First task', done: false },
-    { id: 2, title: 'Second task', done: true },
-  ]);
+  const tasks = ref<Task[]>([]);
+
+  // Only initialize localStorage on the client
+  onMounted(() => {
+    const stored = useStorage<Task[]>('taskify-tasks', []);
+    tasks.value = stored.value;
+
+    // Keep syncing local changes back to storage
+    watch(
+      tasks,
+      (newVal) => {
+        stored.value = newVal;
+      },
+      { deep: true }
+    );
+  });
 
   function toggleTask(id: number) {
     const task = tasks.value.find((t) => t.id === id);
     if (task) task.done = !task.done;
   }
 
-  function reorderTasks(newOrder: any[]) {
+  function reorderTasks(newOrder: Task[]) {
     tasks.value = newOrder;
   }
 
