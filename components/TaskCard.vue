@@ -8,12 +8,21 @@
       >
         <CheckIcon v-if="task.done" class="w-5 h-5 text-green-600" />
       </button>
-      <span :class="{ 'task-done': task.done }">{{ task.title }}</span>
+      <div>
+        <div :class="{ 'task-done': task.done }">
+          {{ task.title }}
+        </div>
+        <div v-if="task.tags.length" class="task-tags">
+          <span v-for="tag in task.tags" :key="tag" class="tag">
+            {{ tag }}
+          </span>
+        </div>
+      </div>
     </div>
 
     <button
       @click="store.deleteTask(task.id)"
-      class="btn-icon text-red-500 hover:text-red-700"
+      class="btn-icon text-gray-500 hover:text-black"
     >
       <TrashIcon class="w-5 h-5" />
     </button>

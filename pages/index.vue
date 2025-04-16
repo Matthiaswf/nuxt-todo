@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-6">
-    <div class="max-w-2xl mx-auto space-y-6">
+  <div class="layout">
+    <div class="max-w-3xl w-full mx-auto space-y-6">
       <TaskForm />
       <TaskColumn />
     </div>

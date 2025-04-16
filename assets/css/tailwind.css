@@ -2,44 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
+.layout {
+  @apply min-h-screen bg-white text-black px-4 py-12;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+/* === COMPONENT STYLES === */
 @layer components {
+  /* --- Buttons --- */
   .btn {
     @apply px-4 py-2 rounded font-medium text-white;
   }
 
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700;
+    @apply bg-black hover:bg-gray-800;
   }
 
   .btn-danger {
-    @apply bg-red-500 hover:bg-red-600;
+    @apply text-red-600 hover:text-red-800;
   }
-
   .btn-icon {
     @apply p-2 rounded-full hover:bg-gray-100 transition;
   }
 
+  /* --- Form Elements --- */
   .form-input {
     @apply w-full p-2 border border-gray-300 rounded;
   }
 
+  /* --- Task Card Layout --- */
   .task-card {
     @apply bg-white p-4 rounded shadow flex items-center justify-between;
   }
 
+  .task-list {
+    @apply space-y-2;
+  }
+
+  /* --- Task State --- */
   .task-toggle {
     @apply btn-icon border border-gray-300 rounded-full;
   }
 
   .task-toggle-active {
-    @apply bg-green-100 border-green-500;
+    @apply bg-black border-black;
   }
 
   .task-done {
     @apply line-through opacity-50;
   }
 
-  .task-list {
-    @apply space-y-2;
+  /* --- Tags --- */
+  .task-tags {
+    @apply mt-1 flex flex-wrap gap-1;
+  }
+
+  .tag {
+    @apply text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded;
   }
 }

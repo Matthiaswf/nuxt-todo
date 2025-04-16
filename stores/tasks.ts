@@ -6,17 +6,16 @@ type Task = {
   id: number;
   title: string;
   done: boolean;
+  tags: string[];
 };
 
 export const useTaskStore = defineStore('task', () => {
   const tasks = ref<Task[]>([]);
 
-  // Only initialize localStorage on the client
   onMounted(() => {
     const stored = useStorage<Task[]>('taskify-tasks', []);
     tasks.value = stored.value;
 
-    // Keep syncing local changes back to storage
     watch(
       tasks,
       (newVal) => {
@@ -35,11 +34,12 @@ export const useTaskStore = defineStore('task', () => {
     tasks.value = newOrder;
   }
 
-  function addTask(title: string) {
+  function addTask(title: string, tags: string[] = []) {
     tasks.value.push({
       id: Date.now(),
       title,
       done: false,
+      tags,
     });
   }
 
