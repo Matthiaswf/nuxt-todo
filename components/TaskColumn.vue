@@ -8,10 +8,16 @@
       v-model="localTasks"
       item-key="id"
       class="task-list"
+      :disabled="isAnyEditing"
       @end="onDragEnd"
     >
       <template #item="{ element }">
-        <TaskCard :task="element" @select-tag="$emit('select-tag', $event)" />
+        <TaskCard
+          :task="element"
+          @select-tag="$emit('select-tag', $event)"
+          @start-editing="isAnyEditing = true"
+          @end-editing="isAnyEditing = false"
+        />
       </template>
     </draggable>
   </div>
@@ -28,6 +34,7 @@ const props = defineProps({
   },
 });
 
+const isAnyEditing = ref(false);
 const localTasks = ref([]);
 
 watch(

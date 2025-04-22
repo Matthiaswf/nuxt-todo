@@ -66,9 +66,12 @@ const props = defineProps({
 const isEditing = ref(false);
 const editedTitle = ref(props.task.title);
 
+const emit = defineEmits(['select-tag', 'start-editing', 'end-editing']);
+
 function startEditing() {
   isEditing.value = true;
   editedTitle.value = props.task.title;
+  emit('start-editing');
 }
 
 function saveEdit() {
@@ -77,9 +80,8 @@ function saveEdit() {
     store.editTask(props.task.id, trimmed);
   }
   isEditing.value = false;
+  emit('end-editing');
 }
-
-defineEmits(['select-tag']);
 
 const store = useTaskStore();
 </script>
