@@ -75,6 +75,6 @@
   }
 
   .tag {
-    @apply text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded;
+    @apply text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded cursor-pointer transition;
   }
 }
