@@ -21,7 +21,11 @@
         </button>
       </div>
 
-      <TaskColumn :tasks="filteredTasks" @reorder="handleReorder" />
+      <TaskColumn
+        :tasks="filteredTasks"
+        @reorder="handleReorder"
+        @select-tag="selectedTag = $event"
+      />
     </div>
   </div>
 </template>

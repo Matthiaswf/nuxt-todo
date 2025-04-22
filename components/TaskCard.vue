@@ -6,14 +6,19 @@
         class="task-toggle"
         :class="{ 'task-toggle-active': task.done }"
       >
-        <CheckIcon v-if="task.done" class="w-5 h-5 text-green-600" />
+        <CheckIcon v-if="task.done" class="w-5 h-5 text-white" />
       </button>
       <div>
         <div :class="{ 'task-done': task.done }">
           {{ task.title }}
         </div>
         <div v-if="task.tags.length" class="task-tags">
-          <span v-for="tag in task.tags" :key="tag" class="tag">
+          <span
+            v-for="tag in task.tags"
+            :key="tag"
+            class="tag cursor-pointer hover:bg-gray-300"
+            @click="$emit('select-tag', tag)"
+          >
             {{ tag }}
           </span>
         </div>
@@ -36,6 +41,8 @@ import { CheckIcon, TrashIcon } from '@heroicons/vue/24/solid';
 const props = defineProps({
   task: Object,
 });
+
+defineEmits(['select-tag']);
 
 const store = useTaskStore();
 </script>

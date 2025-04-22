@@ -11,7 +11,7 @@
       @end="onDragEnd"
     >
       <template #item="{ element }">
-        <TaskCard :task="element" />
+        <TaskCard :task="element" @select-tag="$emit('select-tag', $event)" />
       </template>
     </draggable>
   </div>
@@ -39,7 +39,7 @@ watch(
   { deep: true, immediate: true }
 );
 
-const emit = defineEmits(['reorder']);
+const emit = defineEmits(['reorder', 'select-tag']);
 
 function onDragEnd() {
   emit('reorder', [...localTasks.value]); // emit the new order immediately
