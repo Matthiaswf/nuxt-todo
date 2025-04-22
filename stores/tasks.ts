@@ -35,7 +35,7 @@ export const useTaskStore = defineStore('task', () => {
   }
 
   function addTask(title: string, tags: string[] = []) {
-    tasks.value.push({
+    tasks.value.unshift({
       id: Date.now(),
       title,
       done: false,
