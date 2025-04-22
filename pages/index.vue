@@ -1,8 +1,11 @@
 <template>
   <div class="layout">
-    <div class="max-w-3xl w-full mx-auto space-y-6">
+    <div class="max-w-3xl w-full mx-auto space-y-6 px-4 sm:px-6">
       <TaskForm />
-      <div v-if="allTags.length" class="flex flex-wrap gap-2 mb-4">
+      <div
+        v-if="allTags.length"
+        class="flex flex-wrap gap-x-2 gap-y-2 mb-4 overflow-x-auto"
+      >
         <button
           v-for="tag in allTags"
           :key="tag"

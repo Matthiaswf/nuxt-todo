@@ -37,7 +37,12 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary h-[42px]">Add</button>
+    <button
+      type="submit"
+      class="btn btn-primary h-[42px] self-end sm:self-auto"
+    >
+      Add
+    </button>
   </form>
 </template>
 

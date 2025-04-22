@@ -1,18 +1,24 @@
 <template>
   <div class="task-card">
-    <div class="flex items-center gap-3 flex-1">
+    <div class="flex gap-3 items-start sm:items-center w-full">
+      <!-- Toggle -->
       <button
         @click="store.toggleTask(task.id)"
-        class="task-toggle"
+        class="task-toggle mt-0.5"
         :class="{ 'task-toggle-active': task.done }"
       >
         <CheckIcon
-          v-if="task.done"
-          class="w-5 h-5 text-white dark:text-black"
+          :class="[
+            'w-5 h-5',
+            task.done ? 'text-white dark:text-black' : 'invisible',
+          ]"
         />
       </button>
-      <div>
-        <div v-if="isEditing" class="w-full flex flex-col gap-2">
+
+      <!-- Content -->
+      <div class="flex-1 space-y-2">
+        <!-- Edit mode -->
+        <div v-if="isEditing" class="flex flex-col gap-2">
           <input v-model="editedTitle" class="form-input text-sm" />
 
           <div
@@ -37,11 +43,12 @@
               v-model="tagInput"
               @keydown="handleKeydown"
               @keydown.enter.prevent="addTag"
-              class="flex-1 min-w-[100px] outline-none text-sm"
+              class="form-input text-sm flex-1 min-w-[100px]"
               placeholder="Add tag"
             />
           </div>
-          <div class="flex gap-2 justify-end mt-2">
+
+          <div class="flex gap-2 justify-end">
             <button
               type="button"
               class="btn btn-primary text-sm"
@@ -59,19 +66,25 @@
           </div>
         </div>
 
+        <!-- View mode -->
         <div v-else class="flex items-center gap-2">
-          <div :class="{ 'task-done': task.done }">
+          <div
+            :class="{ 'task-done': task.done }"
+            class="break-words sm:break-normal"
+          >
             {{ task.title }}
           </div>
+
           <button
             @click="startEditing"
-            class="btn-icon text-gray-400 hover:text-black"
+            class="btn-icon text-gray-400 hover:text-black mt-[2px]"
             title="Edit"
           >
             <PencilIcon class="w-4 h-4" />
           </button>
         </div>
 
+        <!-- Tags -->
         <div v-if="task.tags.length" class="task-tags">
           <span
             v-for="tag in task.tags"
@@ -84,14 +97,15 @@
           </span>
         </div>
       </div>
-    </div>
 
-    <button
-      @click="store.deleteTask(task.id)"
-      class="btn-icon text-gray-500 hover:text-black"
-    >
-      <TrashIcon class="w-5 h-5" />
-    </button>
+      <!-- Trash -->
+      <button
+        @click="store.deleteTask(task.id)"
+        class="btn-icon text-gray-500 hover:text-black mt-1"
+      >
+        <TrashIcon class="w-5 h-5" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -131,6 +145,7 @@ function startEditing() {
   editedTitle.value = props.task.title;
   editedTags.value = [...props.task.tags];
   tagInput.value = '';
+  emit('start-editing');
 }
 
 function saveEdit() {

@@ -4,7 +4,7 @@
 
 /* === LAYOUT === */
 .layout {
-  @apply min-h-screen bg-white text-black px-4 py-12 dark:bg-zinc-900 dark:text-white;
+  @apply min-h-screen bg-white text-black px-4 sm:px-6 md:px-8 py-6 sm:py-12 dark:bg-zinc-900 dark:text-white;
   font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -12,7 +12,7 @@
 @layer components {
   /* --- Buttons --- */
   .btn {
-    @apply px-4 py-2 rounded font-medium text-white;
+    @apply px-4 py-2 sm:px-5 sm:py-2.5 rounded font-medium text-white text-sm sm:text-base;
   }
 
   .btn-primary {
@@ -33,11 +33,11 @@
   }
 
   .form-field {
-    @apply flex-1 flex flex-col;
+    @apply flex-1 min-w-0;
   }
 
   .form-input {
-    @apply w-full p-2 border border-gray-300 rounded text-black bg-white dark:bg-zinc-800 dark:border-zinc-600 dark:text-white;
+    @apply w-full min-w-[0] p-2 border border-gray-300 rounded text-black bg-white dark:bg-zinc-800 dark:border-zinc-600 dark:text-white;
   }
 
   .task-input-group {
@@ -46,7 +46,7 @@
 
   /* --- Task Card Layout --- */
   .task-card {
-    @apply bg-white p-4 rounded shadow flex items-center justify-between dark:bg-zinc-800;
+    @apply bg-white p-4 rounded shadow flex justify-between gap-4 items-start sm:items-center flex-col sm:flex-row dark:bg-zinc-800;
   }
 
   .task-list {
@@ -68,16 +68,14 @@
 
   /* --- Tags --- */
   .task-tags {
-    @apply mt-1 flex flex-wrap gap-1;
-  }
-
-  .tag-list {
-    @apply flex flex-wrap gap-2;
+    @apply mt-1 flex flex-wrap gap-2;
   }
 
   .tag {
-    @apply text-xs px-3 py-0.5 rounded-full bg-gray-200 text-gray-700 cursor-pointer transition inline-flex items-center min-h-[28px]
-            dark:bg-zinc-700 dark:text-gray-200;
+    @apply text-xs px-3 py-0.5 rounded-full bg-gray-200 text-gray-700 cursor-pointer transition inline-flex items-center min-h-[28px] dark:bg-zinc-700 dark:text-gray-200;
+  }
+  .tag-list {
+    @apply flex flex-wrap gap-2 mb-2;
   }
 }
 /* --- Transitions --- */
