@@ -9,9 +9,29 @@
         <CheckIcon v-if="task.done" class="w-5 h-5 text-white" />
       </button>
       <div>
-        <div :class="{ 'task-done': task.done }">
-          {{ task.title }}
+        <div v-if="isEditing" class="w-full">
+          <input
+            v-model="editedTitle"
+            @keydown.enter="saveEdit"
+            @blur="saveEdit"
+            class="form-input text-sm"
+            autofocus
+          />
         </div>
+
+        <div v-else class="flex items-center gap-2">
+          <div :class="{ 'task-done': task.done }">
+            {{ task.title }}
+          </div>
+          <button
+            @click="startEditing"
+            class="btn-icon text-gray-400 hover:text-black"
+            title="Edit"
+          >
+            <PencilIcon class="w-4 h-4" />
+          </button>
+        </div>
+
         <div v-if="task.tags.length" class="task-tags">
           <span
             v-for="tag in task.tags"
@@ -35,12 +55,29 @@
 </template>
 
 <script setup>
+import { PencilIcon } from '@heroicons/vue/24/solid';
 import { useTaskStore } from '@/stores/tasks';
 import { CheckIcon, TrashIcon } from '@heroicons/vue/24/solid';
 
 const props = defineProps({
   task: Object,
 });
+
+const isEditing = ref(false);
+const editedTitle = ref(props.task.title);
+
+function startEditing() {
+  isEditing.value = true;
+  editedTitle.value = props.task.title;
+}
+
+function saveEdit() {
+  const trimmed = editedTitle.value.trim();
+  if (trimmed && trimmed !== props.task.title) {
+    store.editTask(props.task.id, trimmed);
+  }
+  isEditing.value = false;
+}
 
 defineEmits(['select-tag']);
 

@@ -42,7 +42,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useTaskStore } from '@/stores/tasks';
 
 const store = useTaskStore();

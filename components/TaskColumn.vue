@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
 import TaskCard from './TaskCard.vue';
 import draggable from 'vuedraggable';
 

@@ -43,6 +43,11 @@ export const useTaskStore = defineStore('task', () => {
     });
   }
 
+  function editTask(id: number, newTitle: string) {
+    const task = tasks.value.find((t) => t.id === id);
+    if (task) task.title = newTitle;
+  }
+
   function deleteTask(id: number) {
     tasks.value = tasks.value.filter((t) => t.id !== id);
   }
@@ -53,5 +58,6 @@ export const useTaskStore = defineStore('task', () => {
     reorderTasks,
     addTask,
     deleteTask,
+    editTask,
   };
 });
