@@ -9,7 +9,9 @@
       item-key="id"
       class="task-list"
       :disabled="isAnyEditing"
+      :animation="200"
       @end="onDragEnd"
+      @start="onDragStart"
     >
       <template #item="{ element }">
         <TaskCard
@@ -49,5 +51,19 @@ const emit = defineEmits(['reorder', 'select-tag']);
 
 function onDragEnd() {
   emit('reorder', [...localTasks.value]); // emit the new order immediately
+}
+
+function onDragStart(event) {
+  // Create an invisible element and set it as the drag image
+  const ghost = document.createElement('div');
+  ghost.style.position = 'absolute';
+  ghost.style.top = '-9999px';
+  ghost.style.width = '0px';
+  ghost.style.height = '0px';
+  document.body.appendChild(ghost);
+  event.dataTransfer.setDragImage(ghost, 0, 0);
+
+  // Clean it up right after
+  setTimeout(() => document.body.removeChild(ghost), 0);
 }
 </script>

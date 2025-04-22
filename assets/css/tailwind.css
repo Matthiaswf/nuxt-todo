@@ -80,3 +80,19 @@
             dark:bg-zinc-700 dark:text-gray-200;
   }
 }
+/* --- Transitions --- */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.25s ease;
+}
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.sortable-ghost {
+  opacity: 0 !important;
+}
