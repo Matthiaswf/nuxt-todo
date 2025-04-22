@@ -6,7 +6,10 @@
         class="task-toggle"
         :class="{ 'task-toggle-active': task.done }"
       >
-        <CheckIcon v-if="task.done" class="w-5 h-5 text-white" />
+        <CheckIcon
+          v-if="task.done"
+          class="w-5 h-5 text-white dark:text-black"
+        />
       </button>
       <div>
         <div v-if="isEditing" class="w-full flex flex-col gap-2">
@@ -102,10 +105,11 @@ const props = defineProps({
 });
 
 const tagColorMap = {
-  urgent: 'bg-red-200 text-red-800',
-  work: 'bg-blue-200 text-blue-800',
-  personal: 'bg-green-200 text-green-800',
-  study: 'bg-purple-200 text-purple-800',
+  urgent: 'bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-200',
+  work: 'bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200',
+  personal: 'bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200',
+  study:
+    'bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200',
 };
 
 const isEditing = ref(false);
@@ -144,7 +148,10 @@ function cancelEdit() {
 }
 
 function getTagColor(tag) {
-  return tagColorMap[tag.toLowerCase()] || 'bg-gray-200 text-gray-700';
+  return (
+    tagColorMap[tag.toLowerCase()] ||
+    'bg-gray-200 text-gray-700 dark:bg-zinc-700 dark:text-gray-200'
+  );
 }
 
 function addTag() {

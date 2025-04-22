@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === LAYOUT === */
 .layout {
-  @apply min-h-screen bg-white text-black px-4 py-12;
+  @apply min-h-screen bg-white text-black px-4 py-12 dark:bg-zinc-900 dark:text-white;
   font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -15,18 +16,18 @@
   }
 
   .btn-primary {
-    @apply bg-black hover:bg-gray-800;
+    @apply bg-black hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200;
   }
 
   .btn-danger {
-    @apply text-red-600 hover:text-red-800;
+    @apply text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300;
   }
+
   .btn-icon {
-    @apply p-2 rounded-full hover:bg-gray-100 transition;
+    @apply p-2 rounded-full hover:bg-gray-100 transition dark:hover:bg-zinc-700;
   }
 
   /* --- Form Elements --- */
-
   .task-form {
     @apply flex flex-col sm:flex-row gap-2 w-full;
   }
@@ -36,7 +37,7 @@
   }
 
   .form-input {
-    @apply w-full p-2 border border-gray-300 rounded;
+    @apply w-full p-2 border border-gray-300 rounded text-black bg-white dark:bg-zinc-800 dark:border-zinc-600 dark:text-white;
   }
 
   .task-input-group {
@@ -45,7 +46,7 @@
 
   /* --- Task Card Layout --- */
   .task-card {
-    @apply bg-white p-4 rounded shadow flex items-center justify-between;
+    @apply bg-white p-4 rounded shadow flex items-center justify-between dark:bg-zinc-800;
   }
 
   .task-list {
@@ -54,11 +55,11 @@
 
   /* --- Task State --- */
   .task-toggle {
-    @apply btn-icon border border-gray-300 rounded-full;
+    @apply btn-icon border border-gray-300 rounded-full dark:border-zinc-600;
   }
 
   .task-toggle-active {
-    @apply bg-black border-black;
+    @apply bg-black border-black dark:bg-white dark:border-white;
   }
 
   .task-done {
@@ -75,6 +76,7 @@
   }
 
   .tag {
-    @apply text-xs px-3 py-0.5 rounded-full bg-gray-200 text-gray-700 cursor-pointer transition inline-flex items-center min-h-[28px];
+    @apply text-xs px-3 py-0.5 rounded-full bg-gray-200 text-gray-700 cursor-pointer transition inline-flex items-center min-h-[28px]
+            dark:bg-zinc-700 dark:text-gray-200;
   }
 }
