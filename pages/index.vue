@@ -20,6 +20,12 @@
           Clear filter
         </button>
       </div>
+      <input
+        v-model="searchQuery"
+        type="text"
+        placeholder="Search tasks..."
+        class="form-input mb-4"
+      />
 
       <TaskColumn
         :tasks="filteredTasks"
@@ -37,10 +43,17 @@ import { useTaskStore } from '@/stores/tasks';
 
 const store = useTaskStore();
 const selectedTag = ref(null);
+const searchQuery = ref('');
 
 const filteredTasks = computed(() => {
-  if (!selectedTag.value) return store.tasks;
-  return store.tasks.filter((task) => task.tags.includes(selectedTag.value));
+  return store.tasks.filter((task) => {
+    const matchesTag =
+      !selectedTag.value || task.tags.includes(selectedTag.value);
+    const matchesSearch = task.title
+      .toLowerCase()
+      .includes(searchQuery.value.toLowerCase());
+    return matchesTag && matchesSearch;
+  });
 });
 
 function handleReorder(newFilteredOrder) {
