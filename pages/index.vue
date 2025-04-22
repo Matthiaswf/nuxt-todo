@@ -21,7 +21,7 @@
         </button>
       </div>
 
-      <TaskColumn :tasks="filteredTasks" />
+      <TaskColumn :tasks="filteredTasks" @reorder="handleReorder" />
     </div>
   </div>
 </template>
@@ -38,6 +38,16 @@ const filteredTasks = computed(() => {
   if (!selectedTag.value) return store.tasks;
   return store.tasks.filter((task) => task.tags.includes(selectedTag.value));
 });
+
+function handleReorder(newFilteredOrder) {
+  // Pull tasks not in filtered list
+  const unfiltered = store.tasks.filter(
+    (t) => !newFilteredOrder.find((ft) => ft.id === t.id)
+  );
+
+  // Combine reordered visible tasks + untouched hidden ones
+  store.reorderTasks([...newFilteredOrder, ...unfiltered]);
+}
 
 const allTags = computed(() => {
   const tagSet = new Set();

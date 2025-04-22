@@ -30,7 +30,7 @@ export const useTaskStore = defineStore('task', () => {
     if (task) task.done = !task.done;
   }
 
-  function reorderTasks(newOrder: Task[]) {
+  function reorderTasks(newOrder) {
     tasks.value = newOrder;
   }
 

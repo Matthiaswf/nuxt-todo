@@ -4,7 +4,12 @@
       No tasks.
     </div>
 
-    <draggable v-else v-model="localTasks" item-key="id" class="task-list">
+    <draggable
+      v-model="localTasks"
+      item-key="id"
+      class="task-list"
+      @end="onDragEnd"
+    >
       <template #item="{ element }">
         <TaskCard :task="element" />
       </template>
@@ -24,13 +29,19 @@ const props = defineProps({
   },
 });
 
-const localTasks = ref([...props.tasks]);
+const localTasks = ref([]);
 
 watch(
   () => props.tasks,
   (newVal) => {
     localTasks.value = [...newVal];
   },
-  { deep: true }
+  { deep: true, immediate: true }
 );
+
+const emit = defineEmits(['reorder']);
+
+function onDragEnd() {
+  emit('reorder', [...localTasks.value]); // emit the new order immediately
+}
 </script>
