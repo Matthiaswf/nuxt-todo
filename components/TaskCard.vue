@@ -36,7 +36,8 @@
           <span
             v-for="tag in task.tags"
             :key="tag"
-            class="tag cursor-pointer hover:bg-gray-300"
+            class="tag cursor-pointer"
+            :class="getTagColor(tag)"
             @click="$emit('select-tag', tag)"
           >
             {{ tag }}
@@ -63,6 +64,13 @@ const props = defineProps({
   task: Object,
 });
 
+const tagColorMap = {
+  urgent: 'bg-red-200 text-red-800',
+  work: 'bg-blue-200 text-blue-800',
+  personal: 'bg-green-200 text-green-800',
+  study: 'bg-purple-200 text-purple-800',
+};
+
 const isEditing = ref(false);
 const editedTitle = ref(props.task.title);
 
@@ -81,6 +89,9 @@ function saveEdit() {
   }
   isEditing.value = false;
   emit('end-editing');
+}
+function getTagColor(tag) {
+  return tagColorMap[tag.toLowerCase()] || 'bg-gray-200 text-gray-700';
 }
 
 const store = useTaskStore();
