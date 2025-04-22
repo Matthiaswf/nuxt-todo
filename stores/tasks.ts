@@ -43,9 +43,12 @@ export const useTaskStore = defineStore('task', () => {
     });
   }
 
-  function editTask(id: number, newTitle: string) {
+  function editTask(id: number, newTitle: string, newTags: string[] = []) {
     const task = tasks.value.find((t) => t.id === id);
-    if (task) task.title = newTitle;
+    if (task) {
+      task.title = newTitle;
+      task.tags = newTags;
+    }
   }
 
   function deleteTask(id: number) {

@@ -9,14 +9,51 @@
         <CheckIcon v-if="task.done" class="w-5 h-5 text-white" />
       </button>
       <div>
-        <div v-if="isEditing" class="w-full">
-          <input
-            v-model="editedTitle"
-            @keydown.enter="saveEdit"
-            @blur="saveEdit"
-            class="form-input text-sm"
-            autofocus
-          />
+        <div v-if="isEditing" class="w-full flex flex-col gap-2">
+          <input v-model="editedTitle" class="form-input text-sm" />
+
+          <div
+            class="form-input flex flex-wrap items-center gap-2 min-h-[40px]"
+          >
+            <span
+              v-for="tag in editedTags"
+              :key="tag"
+              class="tag bg-gray-300 text-gray-800"
+            >
+              {{ tag }}
+              <button
+                @click.prevent="removeTag(tag)"
+                class="ml-1 text-xs font-bold hover:text-red-600"
+                title="Remove tag"
+              >
+                &times;
+              </button>
+            </span>
+
+            <input
+              v-model="tagInput"
+              @keydown="handleKeydown"
+              @keydown.enter.prevent="addTag"
+              class="flex-1 min-w-[100px] outline-none text-sm"
+              placeholder="Add tag"
+            />
+          </div>
+          <div class="flex gap-2 justify-end mt-2">
+            <button
+              type="button"
+              class="btn btn-primary text-sm"
+              @click="saveEdit"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary text-sm"
+              @click="cancelEdit"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
 
         <div v-else class="flex items-center gap-2">
@@ -73,25 +110,53 @@ const tagColorMap = {
 
 const isEditing = ref(false);
 const editedTitle = ref(props.task.title);
+const editedTags = ref([...props.task.tags]);
+const tagInput = ref('');
 
 const emit = defineEmits(['select-tag', 'start-editing', 'end-editing']);
+
+function handleKeydown(e) {
+  if (e.key === ',') {
+    e.preventDefault();
+    addTag();
+  }
+}
 
 function startEditing() {
   isEditing.value = true;
   editedTitle.value = props.task.title;
-  emit('start-editing');
+  editedTags.value = [...props.task.tags];
+  tagInput.value = '';
 }
 
 function saveEdit() {
-  const trimmed = editedTitle.value.trim();
-  if (trimmed && trimmed !== props.task.title) {
-    store.editTask(props.task.id, trimmed);
+  const trimmedTitle = editedTitle.value.trim();
+  if (trimmedTitle) {
+    store.editTask(props.task.id, trimmedTitle, [...editedTags.value]);
   }
   isEditing.value = false;
   emit('end-editing');
 }
+
+function cancelEdit() {
+  isEditing.value = false;
+  emit('end-editing');
+}
+
 function getTagColor(tag) {
   return tagColorMap[tag.toLowerCase()] || 'bg-gray-200 text-gray-700';
+}
+
+function addTag() {
+  const tag = tagInput.value.trim().toLowerCase();
+  if (tag && !editedTags.value.includes(tag)) {
+    editedTags.value.push(tag);
+  }
+  tagInput.value = '';
+}
+
+function removeTag(tag) {
+  editedTags.value = editedTags.value.filter((t) => t !== tag);
 }
 
 const store = useTaskStore();
