@@ -40,22 +40,22 @@ const filteredTasks = computed(() => {
 });
 
 function handleReorder(newFilteredOrder) {
-  const [movedTask] = newFilteredOrder;
+  if (!selectedTag.value) {
+    // Unfiltered view — replace full list directly
+    store.reorderTasks(newFilteredOrder);
+    return;
+  }
 
-  // Get the ID of the task that is now first in the filtered list
+  // Filtered view — insert moved task above next filtered task
+  const [movedTask] = newFilteredOrder;
   const targetId = newFilteredOrder[1]?.id;
 
-  // Remove the moved task from its original position
   const withoutMoved = store.tasks.filter((t) => t.id !== movedTask.id);
-
-  // Find index of the task it should go before
   const targetIndex = withoutMoved.findIndex((t) => t.id === targetId);
 
-  // If no valid target, push to top
   if (targetIndex === -1) {
     store.tasks = [movedTask, ...withoutMoved];
   } else {
-    // Insert movedTask just before targetIndex
     store.tasks = [
       ...withoutMoved.slice(0, targetIndex),
       movedTask,
