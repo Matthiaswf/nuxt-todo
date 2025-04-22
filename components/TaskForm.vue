@@ -1,46 +1,34 @@
 <template>
-  <form @submit.prevent="addNewTask" class="task-form items-start">
-    <!-- Task input -->
-    <div class="form-field">
-      <input
-        v-model="newTask"
-        type="text"
-        class="form-input"
-        placeholder="Add a new task..."
-      />
-    </div>
-
-    <!-- Tag input + tag list -->
-    <div class="form-field">
-      <input
-        v-model="tagInput"
-        @keydown="handleTagKeydown"
-        type="text"
-        class="form-input"
-        placeholder="Type a tag and press Enter or comma"
-      />
-      <div class="tag-list mt-2">
-        <span
-          v-for="(tag, index) in tags"
-          :key="index"
-          class="tag cursor-default"
-        >
-          {{ tag }}
-          <button
-            type="button"
-            @click="removeTag(index)"
-            class="ml-1 text-gray-500 hover:text-black"
-          >
-            &times;
-          </button>
-        </span>
-      </div>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-primary h-[42px] self-end sm:self-auto"
+  <form
+    @submit.prevent="addNewTask"
+    class="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-md space-y-4 sm:space-y-0 sm:grid sm:grid-cols-[auto_1fr_1fr_auto] sm:items-end sm:gap-4"
+  >
+    <!-- Heading -->
+    <label
+      class="text-lg font-semibold text-gray-800 dark:text-white sm:col-span-4"
     >
+      Add New Task
+    </label>
+
+    <!-- Task input -->
+    <input
+      v-model="newTask"
+      type="text"
+      class="form-input"
+      placeholder="Add a new task..."
+    />
+
+    <!-- Tag input -->
+    <input
+      v-model="tagInput"
+      @keydown="handleTagKeydown"
+      type="text"
+      class="form-input"
+      placeholder="Type a tag and press Enter"
+    />
+
+    <!-- Button -->
+    <button type="submit" class="btn btn-primary h-[42px] whitespace-nowrap">
       Add
     </button>
   </form>
