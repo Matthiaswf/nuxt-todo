@@ -14,7 +14,7 @@
     <input
       v-model="newTask"
       type="text"
-      class="form-input"
+      class="form-input sm:col-span-1"
       placeholder="Add a new task..."
     />
 
@@ -23,14 +23,38 @@
       v-model="tagInput"
       @keydown="handleTagKeydown"
       type="text"
-      class="form-input"
-      placeholder="Type a tag and press Enter"
+      class="form-input sm:col-span-1"
+      placeholder="Type a tag and press Enter or comma"
     />
 
-    <!-- Button -->
-    <button type="submit" class="btn btn-primary h-[42px] whitespace-nowrap">
+    <!-- Submit button -->
+    <button
+      type="submit"
+      class="btn btn-primary h-[42px] whitespace-nowrap sm:col-span-1"
+    >
       Add
     </button>
+
+    <!-- Tag preview row -->
+    <div
+      v-if="tags.length"
+      class="tag-list sm:col-span-4 flex flex-wrap gap-2 mt-2"
+    >
+      <span
+        v-for="(tag, index) in tags"
+        :key="index"
+        class="tag cursor-default"
+      >
+        {{ tag }}
+        <button
+          type="button"
+          @click="removeTag(index)"
+          class="ml-1 text-gray-500 hover:text-black dark:hover:text-white"
+        >
+          &times;
+        </button>
+      </span>
+    </div>
   </form>
 </template>
 
@@ -45,11 +69,9 @@ const tags = ref([]);
 
 function addTag() {
   const cleaned = tagInput.value.trim().toLowerCase().replace(/\s+/g, '-');
-
   if (cleaned && !tags.value.includes(cleaned)) {
     tags.value.push(cleaned);
   }
-
   tagInput.value = '';
 }
 
