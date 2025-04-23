@@ -40,9 +40,6 @@
 </template>
 
 <script setup>
-definePageMeta({
-  title: 'Nuxt To Do',
-});
 import TaskForm from '@/components/TaskForm.vue';
 import TaskColumn from '@/components/TaskColumn.vue';
 import { useTaskStore } from '@/stores/tasks';
