@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="addNewTask"
-    class="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-md space-y-4 sm:space-y-0 sm:grid sm:grid-cols-[auto_1fr_1fr_auto] sm:items-end sm:gap-4"
+    class="task-card flex flex-col sm:grid sm:grid-cols-[auto_1fr_1fr_auto] sm:items-end sm:gap-4"
   >
     <!-- Heading -->
     <label
