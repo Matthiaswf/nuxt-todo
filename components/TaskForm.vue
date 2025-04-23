@@ -24,7 +24,7 @@
       @keydown="handleTagKeydown"
       type="text"
       class="form-input sm:col-span-1"
-      placeholder="Type a tag and press Enter or comma"
+      placeholder="Type a tag and press Enter"
     />
 
     <!-- Submit button -->
