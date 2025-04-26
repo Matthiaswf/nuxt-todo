@@ -1,11 +1,15 @@
 <template>
   <div>
-    <div v-if="!localTasks.length" class="text-gray-400 text-center py-8">
+    <div
+      v-if="!localTasks.length && isReady"
+      class="text-gray-400 text-center py-8"
+    >
       No tasks.
     </div>
 
     <ClientOnly>
       <draggable
+        v-if="isReady"
         v-model="localTasks"
         item-key="id"
         class="task-list"
@@ -33,7 +37,6 @@ import draggable from 'vuedraggable';
 import { ClientOnly } from '#components';
 import { ref, watch, onMounted } from 'vue';
 
-// New build
 const props = defineProps({
   tasks: {
     type: Array,
@@ -43,11 +46,13 @@ const props = defineProps({
 
 const isAnyEditing = ref(false);
 const localTasks = ref([]);
+const isReady = ref(false);
 
 watch(
   () => props.tasks,
   (newVal) => {
     localTasks.value = [...newVal];
+    isReady.value = true; // mark ready after loading tasks
   },
   { deep: true, immediate: true }
 );
