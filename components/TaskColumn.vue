@@ -1,10 +1,10 @@
 <template>
-  <ClientOnly>
-    <div>
-      <div v-if="!localTasks.length" class="text-gray-400 text-center py-8">
-        No tasks.
-      </div>
+  <div>
+    <div v-if="!localTasks.length" class="text-gray-400 text-center py-8">
+      No tasks.
+    </div>
 
+    <div v-else>
       <draggable
         v-model="localTasks"
         item-key="id"
@@ -24,13 +24,13 @@
         </template>
       </draggable>
     </div>
-  </ClientOnly>
+  </div>
 </template>
 
 <script setup>
-import { ClientOnly } from '#components';
 import TaskCard from './TaskCard.vue';
 import draggable from 'vuedraggable';
+import { ref, watch, onMounted } from 'vue';
 
 const props = defineProps({
   tasks: {
@@ -40,12 +40,11 @@ const props = defineProps({
 });
 
 const isAnyEditing = ref(false);
+const localTasks = ref([]);
 
 onMounted(() => {
   isAnyEditing.value = false;
 });
-
-const localTasks = ref([]);
 
 watch(
   () => props.tasks,
@@ -58,7 +57,7 @@ watch(
 const emit = defineEmits(['reorder', 'select-tag']);
 
 function onDragEnd() {
-  emit('reorder', [...localTasks.value]); // emit the new order immediately
+  emit('reorder', [...localTasks.value]);
 }
 
 function onDragStart(event) {
