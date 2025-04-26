@@ -28,9 +28,10 @@
 </template>
 
 <script setup>
-import { ClientOnly } from '#components'; // <- this import is important
 import TaskCard from './TaskCard.vue';
 import draggable from 'vuedraggable';
+import { ClientOnly } from '#components';
+import { ref, watch, onMounted } from 'vue';
 
 const props = defineProps({
   tasks: {
