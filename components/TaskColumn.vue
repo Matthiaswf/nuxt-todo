@@ -1,31 +1,34 @@
 <template>
-  <div>
-    <div v-if="!localTasks.length" class="text-gray-400 text-center py-8">
-      No tasks.
-    </div>
+  <ClientOnly>
+    <div>
+      <div v-if="!localTasks.length" class="text-gray-400 text-center py-8">
+        No tasks.
+      </div>
 
-    <draggable
-      v-model="localTasks"
-      item-key="id"
-      class="task-list"
-      :disabled="isAnyEditing"
-      :animation="200"
-      @end="onDragEnd"
-      @start="onDragStart"
-    >
-      <template #item="{ element }">
-        <TaskCard
-          :task="element"
-          @select-tag="$emit('select-tag', $event)"
-          @start-editing="isAnyEditing = true"
-          @end-editing="isAnyEditing = false"
-        />
-      </template>
-    </draggable>
-  </div>
+      <draggable
+        v-model="localTasks"
+        item-key="id"
+        class="task-list"
+        :disabled="isAnyEditing"
+        :animation="200"
+        @end="onDragEnd"
+        @start="onDragStart"
+      >
+        <template #item="{ element }">
+          <TaskCard
+            :task="element"
+            @select-tag="$emit('select-tag', $event)"
+            @start-editing="isAnyEditing = true"
+            @end-editing="isAnyEditing = false"
+          />
+        </template>
+      </draggable>
+    </div>
+  </ClientOnly>
 </template>
 
 <script setup>
+import { ClientOnly } from '#components';
 import TaskCard from './TaskCard.vue';
 import draggable from 'vuedraggable';
 
