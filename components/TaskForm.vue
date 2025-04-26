@@ -36,30 +36,33 @@
     </button>
 
     <!-- Tag preview row -->
-    <div
-      v-if="tags.length"
-      class="tag-list sm:col-span-4 flex flex-wrap gap-2 mt-2"
-    >
-      <span
-        v-for="(tag, index) in tags"
-        :key="index"
-        class="tag cursor-default"
+    <ClientOnly>
+      <div
+        v-if="tags.length"
+        class="tag-list sm:col-span-4 flex flex-wrap gap-2 mt-2"
       >
-        {{ tag }}
-        <button
-          type="button"
-          @click="removeTag(index)"
-          class="ml-1 text-gray-500 hover:text-black dark:hover:text-white"
+        <span
+          v-for="(tag, index) in tags"
+          :key="index"
+          class="tag cursor-default"
         >
-          &times;
-        </button>
-      </span>
-    </div>
+          {{ tag }}
+          <button
+            type="button"
+            @click="removeTag(index)"
+            class="ml-1 text-gray-500 hover:text-black dark:hover:text-white"
+          >
+            &times;
+          </button>
+        </span>
+      </div>
+    </ClientOnly>
   </form>
 </template>
 
 <script setup>
 import { useTaskStore } from '@/stores/tasks';
+import { ClientOnly } from '#components';
 
 const store = useTaskStore();
 
