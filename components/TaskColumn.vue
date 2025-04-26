@@ -33,6 +33,7 @@ import draggable from 'vuedraggable';
 import { ClientOnly } from '#components';
 import { ref, watch, onMounted } from 'vue';
 
+// New build
 const props = defineProps({
   tasks: {
     type: Array,
