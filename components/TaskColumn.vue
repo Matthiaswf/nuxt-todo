@@ -4,7 +4,7 @@
       No tasks.
     </div>
 
-    <div v-else>
+    <ClientOnly>
       <draggable
         v-model="localTasks"
         item-key="id"
@@ -23,14 +23,14 @@
           />
         </template>
       </draggable>
-    </div>
+    </ClientOnly>
   </div>
 </template>
 
 <script setup>
+import { ClientOnly } from '#components'; // <- this import is important
 import TaskCard from './TaskCard.vue';
 import draggable from 'vuedraggable';
-import { ref, watch, onMounted } from 'vue';
 
 const props = defineProps({
   tasks: {
@@ -41,10 +41,6 @@ const props = defineProps({
 
 const isAnyEditing = ref(false);
 const localTasks = ref([]);
-
-onMounted(() => {
-  isAnyEditing.value = false;
-});
 
 watch(
   () => props.tasks,
@@ -61,16 +57,13 @@ function onDragEnd() {
 }
 
 function onDragStart(event) {
-  if (typeof window !== 'undefined' && event?.dataTransfer) {
-    const ghost = document.createElement('div');
-    ghost.style.position = 'absolute';
-    ghost.style.top = '-9999px';
-    ghost.style.width = '0px';
-    ghost.style.height = '0px';
-    document.body.appendChild(ghost);
-    event.dataTransfer.setDragImage(ghost, 0, 0);
-
-    setTimeout(() => document.body.removeChild(ghost), 0);
-  }
+  const ghost = document.createElement('div');
+  ghost.style.position = 'absolute';
+  ghost.style.top = '-9999px';
+  ghost.style.width = '0px';
+  ghost.style.height = '0px';
+  document.body.appendChild(ghost);
+  event.dataTransfer.setDragImage(ghost, 0, 0);
+  setTimeout(() => document.body.removeChild(ghost), 0);
 }
 </script>
