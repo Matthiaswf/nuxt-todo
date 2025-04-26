@@ -37,6 +37,11 @@ const props = defineProps({
 });
 
 const isAnyEditing = ref(false);
+
+onMounted(() => {
+  isAnyEditing.value = false;
+});
+
 const localTasks = ref([]);
 
 watch(
