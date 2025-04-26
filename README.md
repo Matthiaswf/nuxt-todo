@@ -1,75 +1,27 @@
-# Nuxt Minimal Starter
+# Nuxt-To Do – Smart Task Tracker
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt-To Do is a modern task management app built with Nuxt 3 and Tailwind CSS.  
+It provides a clean interface to create, filter, and organize your tasks, with persistent storage and real-time interaction features.
 
-## Setup
+---
 
-Make sure to install dependencies:
+## Features
 
-```bash
-# npm
-npm install
+- Create, edit, and delete tasks  
+- Add tags to tasks and filter by tag  
+- Reorder tasks via drag-and-drop  
+- Live search functionality  
+- Dark mode support  
+- Fully responsive layout  
+- Deployed to a custom subdomain: [nuxt-todo.mattwf.dev](https://nuxt-todo.mattwf.dev)  
 
-# pnpm
-pnpm install
+---
 
-# yarn
-yarn install
+## Tech Stack
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Nuxt 3 (Vue 3 with Composition API)  
+- Tailwind CSS  
+- Pinia for state management  
+- VueUse for local storage  
+- vuedraggable for drag-and-drop  
+---
