@@ -1,5 +1,26 @@
 <template>
   <div class="task-card">
+    <!-- Mobile drag handle -->
+    <span
+      class="drag-handle block sm:hidden cursor-move text-gray-400 hover:text-black mt-1"
+      title="Drag"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 10h16M4 14h16"
+        />
+      </svg>
+    </span>
+
     <div class="flex gap-3 items-start sm:items-center w-full">
       <!-- Toggle -->
       <button
@@ -24,7 +45,7 @@
           <div
             class="form-input flex flex-wrap items-center gap-2 min-h-[40px]"
           >
-            <span
+            <div
               v-for="tag in editedTags"
               :key="tag"
               class="tag bg-gray-300 text-gray-800"
@@ -37,7 +58,7 @@
               >
                 &times;
               </button>
-            </span>
+            </div>
 
             <input
               v-model="tagInput"

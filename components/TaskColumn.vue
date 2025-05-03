@@ -9,12 +9,12 @@
 
     <ClientOnly>
       <draggable
-        v-if="isReady"
         v-model="localTasks"
         item-key="id"
         class="task-list"
         :disabled="isAnyEditing"
         :animation="200"
+        handle=".drag-handle"
         @end="onDragEnd"
         @start="onDragStart"
       >
@@ -64,6 +64,9 @@ function onDragEnd() {
 }
 
 function onDragStart(event) {
+  // Prevent error on touch devices where dataTransfer is undefined
+  if (!event.dataTransfer) return;
+
   const ghost = document.createElement('div');
   ghost.style.position = 'absolute';
   ghost.style.top = '-9999px';
