@@ -91,6 +91,13 @@ function handleTagKeydown(e) {
 
 function addNewTask() {
   const title = newTask.value.trim();
+  const currentTag = tagInput.value.trim().toLowerCase().replace(/\s+/g, '-');
+
+  // Add the current tag input if not empty and not already in list
+  if (currentTag && !tags.value.includes(currentTag)) {
+    tags.value.push(currentTag);
+  }
+
   if (title) {
     store.addTask(title, tags.value);
     newTask.value = '';
