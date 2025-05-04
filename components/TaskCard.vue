@@ -170,10 +170,16 @@ function startEditing() {
 }
 
 function saveEdit() {
+  const currentTag = tagInput.value.trim().toLowerCase().replace(/\s+/g, '-');
+  if (currentTag && !editedTags.value.includes(currentTag)) {
+    editedTags.value.push(currentTag);
+  }
+
   const trimmedTitle = editedTitle.value.trim();
   if (trimmedTitle) {
     store.editTask(props.task.id, trimmedTitle, [...editedTags.value]);
   }
+
   isEditing.value = false;
   emit('end-editing');
 }
@@ -191,7 +197,7 @@ function getTagColor(tag) {
 }
 
 function addTag() {
-  const tag = tagInput.value.trim().toLowerCase();
+  const tag = tagInput.value.trim().toLowerCase().replace(/\s+/g, '-');
   if (tag && !editedTags.value.includes(tag)) {
     editedTags.value.push(tag);
   }
